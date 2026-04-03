@@ -3,8 +3,6 @@
 ## L'Anima del Ghiaccio - Digital Magazine Concept
 Una pieza de CSS Art, de ingeniería frontend y de editorial inspirada en el patinaje artístico y la estética olímpica de Milano-Cortina 2026.
 
-![Portada](./assets/Captura.png) 
-
 ## El Concepto - mi experiencia
 Como Licenciada en Letras Clásicas, colaboré un año en una editorial de la UNAM, donde aprendí como crear libros y revistas académicas. Gracias a esta fromación y mi pasión como patinadora sobre hielo retirada, esto junto con mis nuevas habilidades como Frontend Dveloper y Diseñaodara UX he creado una mini muestra de la portada de una revista:
 
