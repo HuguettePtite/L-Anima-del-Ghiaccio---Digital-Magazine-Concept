@@ -1,0 +1,505 @@
+@import url('https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Josefin+Slab:wght@300;400;700&family=Lobster&display=swap'); 
+
+:root {
+  --font-title: "Lobster", sans-serif;
+  --font-subtitle: "Josefin Slab", serif;
+  --font-text: "Arvo", serif;
+  --font-size-base: 16px;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+}
+
+
+
+.canvas {
+  background: rgb(219, 219, 240);
+  height: 160vh;
+  display: flex;
+  justify-content: center; /* Centra la revista en la pantalla */
+  align-items: center;
+  padding: 1px;
+  box-sizing: border-box;
+  align-items: baseline;
+}
+
+.front-page {
+  background: linear-gradient(151deg, #0035A0 37.17%, #AEEEEE 48.13%, #00E5FF 59.47%, rgba(255, 255, 255, 0.92) 85.77%);
+  display: grid;
+  /* Proporción de revista: Ancho fijo o máximo */
+  width: 90vw; 
+  max-width: 550px; /* Tamaño ideal para que parezca una revista */
+  aspect-ratio: 1 / 1.414; /* Mantiene la forma de hoja A4 */
+   background-color: transparent; /* El fondo lo da el canvas o landscape */
+  position: relative;
+  
+  /* Sombra para dar efecto de papel con volumen */
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  grid-template: repeat(10, 1fr) / repeat(8, 1fr);
+  grid-template-areas: 
+    "header    header    header    header    header    header    header    header"
+    "patin1    landsc    landsc    landsc    landsc    landsc    landsc    subti"
+    "patin1    landsc    landsc    landsc    landsc    landsc    landsc    subti"
+    "patin2    landsc    landsc    landsc    landsc    landsc    landsc    stars"
+    "patin2    landsc    landsc    landsc    landsc    landsc    landsc    stars"
+    "patin2    landsc    landsc    landsc    landsc    landsc    landsc    stars"
+    "patin3    landsc    landsc    landsc    landsc    landsc    landsc    stars"
+    "patin3    patin4    patin4    patin5    patin5    stars     stars     stars"
+    "footer    footer    footer    footer    footer    footer    footer    footer"
+    "footer1   footer1   footer1   footer1   footer1   footer1   footer1   footer1";
+  gap: 0; /* Para que los elementos se toquen */
+  border: 8px solid white; /* Simula el borde de papel blanco de algunas revistas */
+  outline: 1px solid rgba(0,0,0,0.1); /* Un filo oscuro para dar realismo */
+}
+
+
+.header { grid-area: header; }
+.landscape-container { grid-area: landsc; }
+.patin1 { grid-area: patin1; }
+.patin2 { grid-area: patin2; }
+.patin3 { grid-area: patin3; }
+.patin4 { grid-area: patin4; }
+.patin5 { grid-area: patin5; }
+.subt1  { grid-area: subti; }
+.footer { grid-area: footer; }
+.footer1 { grid-area: footer1; }
+/* Las estrellas usan display: contents, así que sus coordenadas manuales 
+   (nth-child) seguirán funcionando perfectamente sobre este grid */
+
+.patin1 {
+  top: 100px;
+  left: 20px;
+  z-index: 1;
+}
+
+.patin1 img {
+  width: 180px;
+}
+
+.patin2 {
+  top: 210px;
+  left: 10px;
+  z-index: 2;
+}
+
+.patin2 img {
+  width: 240px;
+}
+
+.patin3 {
+  top: 380px;
+    left: 50px;
+}
+
+.patin3 img {
+  width: 200px;
+}
+
+.patin4 {
+  bottom: 10%;
+  left: 50px;
+  z-index: 6; /* Si quieres que el 4 pise al 3, le subes el z-index */
+}
+
+.patin4 img {
+  width: 400px;
+}
+
+.patin5 {
+  top: 500px;
+  left: 340px;
+}
+
+.patin5 img {
+      width: 200px;
+}
+
+.header {
+  grid-column: 3 / 7;
+  grid-row: 1 / 2;
+  font-family: var(--font-title);
+  font-weight: var(--font-weight-bold);
+  background:  linear-gradient(to bottom, #ffffff, #acacac);
+  -webkit-background-clip: text; /* Clave para que el color se aplique a la letra */
+  -webkit-text-fill-color: transparent;
+  display: grid;
+  place-items: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  letter-spacing: 2px;
+}
+
+.header h1 {
+  text-align: center; /* Centra ambas líneas */
+  line-height: 0.9;   /* Ajusta esto para que las palabras estén más juntas o separadas */
+}
+
+.header h1 span {
+  display: block;     /* Fuerza a que "Ghiaccio" salte a la siguiente línea */
+  width: 100%;        /* Asegura que ocupe todo el ancho para centrarse bien */
+  font-size: 2em;      /* Hace "Ghiaccio" más imponente */
+
+}
+
+.header h1 span::after {
+  content: "";
+  position: absolute;
+  
+  /* COORDENADAS: Ajusta estos valores según tu fuente Lobster */
+  top: 50px;    /* Sube el copo para que tape el punto de la 'i' */
+  right: 192px;  /* Lo mueve horizontalmente sobre la última 'i' */
+  
+  /* DISEÑO DEL COPO (SVG) */
+  width: 18px; 
+  height: 18px;
+  background-image: url('assets/ion_snow-sharp.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  
+  /* Brillo sutil para que resalte sobre el texto */
+  filter: drop-shadow(0 0 2px white);
+  
+  z-index: 10;
+  animation: girarCopo 10s linear infinite;
+}
+
+@keyframes girarCopo {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+
+
+
+
+/* Define la animación si la usas */
+@keyframes parpadeoSutil {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.subt1 {
+  grid-column: 4 / 8;
+  grid-row: 2 / 3;
+  font-family: var(--font-subtitle);
+  font-weight: var(--font-weight-normal);
+   background:  linear-gradient(to bottom, #ffffff, #0a22a3);
+  -webkit-background-clip: text; /* Clave para que el color se aplique a la letra */
+  -webkit-text-fill-color: #0a22a3;
+  display: grid;
+  place-items: center;
+  place-self: center stretch;
+  text-shadow: 1px 1px 2px rgba(0, 26, 77, 0.5);
+  
+}
+
+.grid-container {
+   display: contents; /* El contenedor no genera caja propia, sus hijos saltan al grid padre */
+}
+
+.stars {
+  /* Estrella base (la que posicionas en el grid) */
+  width: 3px;
+  height: 3px;
+  background: #ffffff;
+  border-radius: 50%;
+  position: relative;
+  
+  /* El rocío base coincide con el inicio de la animación */
+  box-shadow: 
+    8px -5px 0px 0px rgba(255, 255, 255, 0.8),
+    -12px 10px 0px -1px rgba(255, 255, 255, 0.6),
+    20px 15px 0px -1px rgba(255, 255, 255, 0.4),
+    15px -10px 4px 1px rgba(224, 247, 255, 0.7), 
+    -5px 18px 3px 0px rgba(255, 255, 255, 0.5),
+    -20px -8px 2px 0px #CCFFFF;
+  
+  /* Animación para que todo el grupo parpadee */
+  animation: parpadeo 3s infinite ease-in-out;
+  z-index: 7;
+}
+
+/* Coordenadas para dibujar la "S" */
+.stars:nth-child(1) { grid-column: 6; grid-row: 2; place-self: start end;} 
+.stars:nth-child(2) { grid-column: 6; grid-row: 2; place-self: end end; right: 20px; bottom: 30px;} 
+.stars:nth-child(3) { grid-column: 5; grid-row: 2; place-self: end end; } 
+.stars:nth-child(4) { grid-column: 4; grid-row: 3; place-self: start end; left: 44px;} 
+.stars:nth-child(5) { grid-column: 4; grid-row: 3; justify-self: end; top: 10px;}
+.stars:nth-child(6) { grid-column: 4; grid-row: 3; align-self: end; left: 66px; }
+.stars:nth-child(7) { grid-column: 3; grid-row: 3; place-self: end; left: 14px; top: 10px;} 
+.stars:nth-child(8) { grid-column: 3; grid-row: 3; place-self: end; top: 28px; right: 16px; }
+.stars:nth-child(9) { grid-column: 3; grid-row: 3; align-self: end; left: 60px;}
+.stars:nth-child(10) { grid-column: 2; grid-row: 4; justify-self: end; left: 24px; top: 20px;} 
+.stars:nth-child(11) { grid-column: 2; grid-row: 4; place-self: end; }
+.stars:nth-child(12) { grid-column: 2; grid-row: 4; place-self: end end; bottom: 30px; right: 30px;}
+.stars:nth-child(13) { grid-column: 1; grid-row: 5; justify-self: end;} 
+.stars:nth-child(14) { grid-column: 1; grid-row: 5;  justify-self: end; left: 60px;}
+.stars:nth-child(15) { grid-column: 1; grid-row: 5;  justify-self: end; left: 20px; top: 30px;}
+.stars:nth-child(16) { grid-column: 1; grid-row: 6; justify-self: end; right: 20px; top: 8px; } 
+.stars:nth-child(17) { grid-column: 1; grid-row: 6; justify-self: end; right: 50px; top: 30px; }
+.stars:nth-child(18) { grid-column: 1; grid-row: 6; align-self: end; left: 30px; top: 20px;}
+.stars:nth-child(19) { grid-column: 1; grid-row: 7; place-self: center center; top: 20px;} 
+.stars:nth-child(20) { grid-column: 1; grid-row: 7; place-self: end center; top: 40px;}
+.stars:nth-child(21) { grid-column: 1; grid-row: 7; place-self: end end; top: 40px;}
+.stars:nth-child(22) { grid-column: 1; grid-row: 8; justify-self: start; left: 40px;top: 40px;} 
+.stars:nth-child(23) { grid-column: 1; grid-row: 8; justify-self: start; left: 80px; top: 40px;}
+.stars:nth-child(24) { grid-column: 1; grid-row: 8; justify-self: start; top: 60px; left: 100px;}
+.stars:nth-child(25) { grid-column: 2; grid-row: 8; justify-self: start;} 
+.stars:nth-child(26) { grid-column: 2; grid-row: 8; justify-self: start;}
+.stars:nth-child(27) { grid-column: 2; grid-row: 8; align-items: start;} 
+.stars:nth-child(28) { grid-column: 5; grid-row: 8;} 
+.stars:nth-child(29) { grid-column: 6; grid-row: 9;} 
+.stars:nth-child(30) { grid-column: 7; grid-row: 9;} 
+.stars:nth-child(31) { grid-column: 5; grid-row: 9;} 
+.stars:nth-child(32) { grid-column: 5; grid-row: 9; bottom: 10px;} 
+.stars:nth-child(33) { grid-column: 6; grid-row: 9; left: 40px; bottom: 20px;} 
+.stars:nth-child(34) { grid-column: 6; grid-row: 9; left: 10px; bottom: 20px;}
+.stars:nth-child(35) { grid-column: 7; grid-row: 9; left: 40px; bottom: 20px;} 
+.stars:nth-child(36) { grid-column: 6; grid-row: 2; place-self: start;} 
+.stars:nth-child(37) { grid-column: 6; grid-row: 2; } 
+.stars:nth-child(38) { grid-column: 6; grid-row: 2; align-self: start;} 
+.stars:nth-child(39) { grid-column: 6; grid-row: 2; place-self: end;} 
+.stars:nth-child(40) { grid-column: 6; grid-row: 2; justify-self: end;} 
+
+@keyframes parpadeo {
+  0%, 100% { 
+    filter: brightness(3);
+    transform: scale(var(--scale, 1));
+    /* Posiciones originales del rocío */
+    box-shadow: 
+      8px -5px 0px 0px rgba(255, 255, 255, 0.8),
+      -12px 10px 0px -1px rgba(255, 255, 255, 0.6),
+      20px 15px 0px -1px rgba(255, 255, 255, 0.4),
+      15px -10px 4px 1px rgba(224, 247, 255, 0.7), 
+      -5px 18px 3px 0px rgba(255, 255, 255, 0.5),
+      -20px -8px 2px 0px #CCFFFF;
+  }
+  50% { 
+    filter: brightness(6); 
+    transform: scale(calc(var(--scale, 1) * 1.8));
+    /* Aumentamos el resplandor (blur) sin mover las estrellas */
+    box-shadow: 
+      8px -5px 4px 0px rgba(255, 255, 255, 1),
+      -12px 10px 4px -1px rgba(255, 255, 255, 0.9),
+      20px 15px 4px -1px rgba(255, 255, 255, 0.7),
+      15px -10px 8px 2px rgba(224, 247, 255, 1), 
+      -5px 18px 6px 0px rgba(255, 255, 255, 0.8),
+      -20px -8px 6px 0px #FFFFFF;
+  }
+}
+
+.subt2 {
+  grid-column: 3 / 8;
+  grid-row: 4 / 5;
+  place-self: center;
+   background:  linear-gradient(to bottom, #ffffff, #acacac);
+  -webkit-background-clip: text; /* Clave para que el color se aplique a la letra */
+  -webkit-text-fill-color: transparent;
+  display: grid;
+  place-items: center;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  font-family: var(--font-subtitle);
+  text-transform: uppercase;
+  letter-spacing: 0.2em; /* Esto se ve muy sofisticado y "premium" */
+}
+
+.subt2 h2 span {
+  display: block;     /* Fuerza a que "Ghiaccio" salte a la siguiente línea */
+  width: 100%;        /* Asegura que ocupe todo el ancho para centrarse bien */
+  padding-left: 90px;
+  padding-top: 10px;
+}
+
+.subt3 {
+  grid-column: 3 / 7;
+  grid-row: 5 / 7;  
+  font-family: var(--font-subtitle);
+  font-weight: var(--font-weight-light);
+  background:  linear-gradient(to bottom, #ffffff, #acacac);
+  -webkit-background-clip: text; /* Clave para que el color se aplique a la letra */
+  -webkit-text-fill-color: transparent;
+  display: grid;
+  place-items: center stretch;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  padding-left: 20px;
+}
+
+.subt1, .subt2, .subt3, .patin1, .patin2, .patin3, .patin4, .patin5 {
+  z-index: 5; /* Encima del logo */
+  position: absolute; /* Necesario para que z-index responda */
+}
+
+
+.landscape-container {
+  /* Posicionamiento que heredamos del antiguo .logo */
+  grid-column: 2 / 8;
+  grid-row: 2 / 9;
+  
+  position: relative;
+  z-index: 1; /* Se mantiene debajo de textos y patinadores (z-index: 2+) */
+  overflow: hidden;
+  
+  /* Estética de vidrio editorial */
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.landscape-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* El efecto de vidrio esmerilado aplicado directamente a la foto */
+  filter: blur(2px) brightness(1.1) saturate(110%);
+  transform: scale(1.1); /* Para que el blur no deje bordes vacíos */
+  /* Ajusta de 0 (invisible) a 1 (sólido). 
+     0.6 es un buen punto de partida para que se vea etérea. */
+  opacity: 0.6; 
+  
+  transition: opacity 0.3s ease; /* Opcional: para que el cambio no sea brusco */
+
+}
+
+.glass-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Reflejo de luz para dar sensación de material sólido (vidrio/hielo) */
+  
+  
+  /* Aumentamos la base blanca y el degradado para "tapar" más la imagen */
+  background: linear-gradient(
+    135deg, 
+    rgba(255, 255, 255, 0.5) 0%, /* Más blanco al inicio */
+    rgba(255, 255, 255, 0.3) 50%, /* Blanco sutil en medio */
+    rgba(255, 255, 255, 0.1) 100% /* Muy traslúcido al final */
+  );
+  
+  pointer-events: none;
+}
+
+.vertical-tag {
+  grid-column: 8; /* La colocamos en la última columna */
+  grid-row: 2 / 8; /* Que abarque varias filas */
+  
+  writing-mode: vertical-rl; /* Texto vertical de arriba a abajo */
+  text-transform: uppercase;
+  font-family: var(--font-subtitle);
+  font-size: 1rem;
+  letter-spacing: 0.3em;
+  color: #2b2b5e; /* Sutil, como una marca de agua */
+  font-weight: bold;
+  place-self: center; /* Centrada en su celda del grid */
+  z-index: 10;
+}
+
+/* --- La Zona de Cambio de Página (Grid Cell 10,8) --- */
+
+.page-turn-zone {
+  grid-column: 8; /* Última columna */
+  grid-row: 10;    /* Última fila */
+  
+  position: relative;  /* Ancla para el papel y el texto */
+  display: flex;       /* Ayuda a centrar el texto */
+  justify-content: center;
+  align-items: center;
+  
+  z-index: 20;         /* Encima de estrellas y patinadores */
+  cursor: pointer;     /* Cambia el mouse para invitar al click */
+  z-index: 999; /* Asegúrate de que sea el más alto de todos */
+    cursor: pointer;
+}
+
+/* --- El Papel Doblado (Folded Paper) con CSS Art --- */
+
+.folded-paper {
+  /* El triángulo de papel blanco */
+  width: 0;
+  height: 0;
+  border-style: solid;
+  
+  /* MEDIDAS DEL DOBLEZ (Ajusta el tamaño aquí) */
+  border-width: 0 0 65px 65px; /* Tamaño de la pestaña */
+  
+  /* Colores de las capas del triángulo */
+  border-color: transparent transparent #ffffff transparent; /* El color del papel doblado */
+  
+  /* Efecto de sombra para dar volumen (detrás de la pestaña) */
+  filter: drop-shadow(-5px -5px 5px rgba(0, 0, 0, 0.4));
+  
+  /* Posicionamiento en la esquina inferior derecha del Grid */
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  
+  transition: border-width 0.3s ease; /* Para la animación de hover */
+}
+
+/* --- El Texto en Latín "AD ASTRA" --- */
+
+.ad-astra-wrapper {
+  /* Contenedor que rota el texto */
+  transform: rotate(-45deg); /* Giramos todo el bloque con el doblez */
+  
+  width: 55px; /* Coincide con el tamaño del triángulo */
+  text-align: center;
+  
+  /* Posicionamiento fino dentro de la celda */
+  position: absolute;
+  bottom: 18px; /* Sube el texto para que esté sobre el papel blanco */
+  right: 18px;
+  
+  opacity: 0.9;
+  pointer-events: none; /* No interfiere con el click */
+  transition: opacity 0.3s ease, bottom 0.3s ease;
+}
+
+.ad-astra-p {
+  font-family: var(--font-subtitle); /* Josefin Slab para elegancia clásica */
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: #0035A0; /* Azul oscuro para que contraste con el papel blanco */
+  text-transform: uppercase;
+  font-weight: bold;
+  margin: 0;
+  
+  /* Sombra sutil para que "salte" del papel */
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.6);
+}
+
+/* Cuando el mouse pasa sobre la revista completa */
+.front-page:hover .folded-paper {
+  border-width: 0 0 75px 75px; /* Aumenta el tamaño del doblez */
+}
+
+/* El texto se hace más nítido y sube con el papel */
+.front-page:hover .ad-astra-wrapper {
+  opacity: 1;
+  bottom: 22px;
+}
+
+
+
+.footer {
+  grid-column: 1 / -1; /* Ocupa todo el ancho */
+  grid-row: 9; /* Sube una fila */
+  text-align: start;
+  font-family: var(--font-subtitle);
+  padding: 10px;
+}
+
+.footer1 {
+  grid-column: 1 / -1;
+  grid-row: 10;
+  text-align: center;
+  font-family: var(--font-subtitle);
+  font-size: 0.7rem;
+  padding: 5px;
+  
+}
+
+
+    
+
+
